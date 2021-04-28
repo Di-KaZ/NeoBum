@@ -1,5 +1,5 @@
 import { ModelFactory, ModelRelatedNodesI, NeogmaInstance } from 'neogma';
-import { neogma } from '../neogma';
+import { neogma } from '../services/neogma';
 import { Albums, AlbumsInstance } from './Albums';
 import { Instruments, InstrumentsInstance } from './Instruments';
 import { Pays, PaysInstance } from './Pays';

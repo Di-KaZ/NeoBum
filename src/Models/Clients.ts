@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
 import { ModelFactory, ModelRelatedNodesI, neo4jDriver, NeogmaInstance } from 'neogma';
-import { neogma } from '../neogma';
+import { neogma } from '../services/neogma';
 import { Sales, SalesInstance } from './Sales';
 const label = 'Client';
 

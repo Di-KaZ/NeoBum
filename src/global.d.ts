@@ -2,7 +2,7 @@
 /// <reference types="svelte" />
 /// <reference types="vite/client" />
 interface ImportMetaEnv {
-	NEO4J_URL: string;
-	NEO4J_USERNAME: string;
-	NEO4J_PASSWORD: string;
+	VITE_NEO4J_URL: string;
+	VITE_NEO4J_USERNAME: string;
+	VITE_NEO4J_PASSWORD: string;
 }

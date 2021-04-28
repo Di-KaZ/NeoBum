@@ -1,19 +1,21 @@
 <script lang="ts">
-	import { Button } from 'attractions';
-	import { Albums } from '../services/Models/Albums';
+	import { onMount } from 'svelte';
+	import { fade, fly } from 'svelte/transition';
 
-	let result;
-	const test = async () => {
-		result = await Albums.createOne({
-			name: 'GET_MOUSSED',
-			prodYear: 2021,
-			price: 13.5,
-			coverUrl: ''
-		});
-		console.log(result);
-		result = result.name;
-	};
+	let ready = false;
+
+	onMount(() => (ready = true));
 </script>
 
-<Button outline on:click={test}>Hey</Button>
-{result}
+<div class="d-flex justify-center align-center flex-column" style="height:70vh">
+	{#if ready}
+		<div class="text-h1 d-flex">
+			<span class="red-text" in:fly={{ y: -200, duration: 700 }}>Neo</span>
+			<span class="purple-text" in:fly={{ y: 200, duration: 700 }}>Bum</span>
+		</div>
+		<hr style="width: 10%;height:3px;border-radius:5px;border:0px;" class="black ma-2 " />
+		<h3 class="text-overline indigo-text" in:fade={{ delay: 150, duration: 500 }}>
+			Your Music Library
+		</h3>
+	{/if}
+</div>
