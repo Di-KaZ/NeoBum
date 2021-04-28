@@ -15,7 +15,7 @@
 		</div>
 		<hr style="width: 10%;height:3px;border-radius:5px;border:0px;" class="black ma-2 " />
 		<h3 class="text-overline indigo-text" in:fade={{ delay: 150, duration: 500 }}>
-			Your Music Library
+			Neo4j Music Library
 		</h3>
 	{/if}
 </div>
