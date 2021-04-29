@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import type { AlbumsInstance } from 'src/Models/Albums';
 	import { Button, Card, CardActions, CardSubtitle, CardTitle } from 'svelte-materialify';
 
@@ -10,7 +11,7 @@
 	<CardTitle>{album.name}</CardTitle>
 	<CardSubtitle>palceholder</CardSubtitle>
 	<CardActions>
-		<Button text>More Info</Button>
+		<Button text on:click={() => goto(`/Albums/${album.name}`)}>More Info</Button>
 	</CardActions>
 </Card>
 

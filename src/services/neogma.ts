@@ -1,5 +1,6 @@
 import { dev } from '$app/env';
 import { Neogma } from 'neogma';
+
 export const neogma = new Neogma(
 	{
 		url: import.meta.env.VITE_NEO4J_URL,
