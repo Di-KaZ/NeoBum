@@ -19,7 +19,7 @@
 
 <MaterialApp>
 	<Navbar {open} />
-	<slot />
+	<slot {open} />
 	<Overlay index={1} {active} on:click={close} absolute />
 	<NavDrawer {active} {close} />
 </MaterialApp>

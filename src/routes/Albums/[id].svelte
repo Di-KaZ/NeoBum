@@ -1,9 +1,10 @@
-<script context="module">
+<script context="module" lang="ts">
 	import { Col, Row } from 'svelte-materialify';
-	import { getAlbumByName } from '../../services/AlbumsService';
+	import type { AlbumsInstance } from '../../Models/Albums';
+	import { getAlbumById } from '../../services/AlbumsService';
 
 	export async function load({ page }) {
-		const album = await getAlbumByName(page.params.name);
+		const album = await getAlbumById(+page.params.id);
 
 		return {
 			props: {
@@ -14,7 +15,7 @@
 </script>
 
 <script lang="ts">
-	export let album: any;
+	export let album: AlbumsInstance;
 </script>
 
 <Row class="justify-center align-center" style="width:100vw;height:calc(100vh - 68px);">
@@ -22,9 +23,14 @@
 		<Row class="justify-center">
 			<Col class="d-flex flex-column justify-center align-center">
 				<img src={album.cover} alt="cover" class="cover elevation-13" />
-				{album.name}
+				<p class="font-weight-medium text-h3">
+					{album.name}
+				</p>
 			</Col>
 			<Col />
+		</Row>
+		<Row>
+			{album.price}
 		</Row>
 	</Col>
 </Row>

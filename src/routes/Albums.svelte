@@ -12,15 +12,17 @@
 <h1 class="text-h1 text-center pa-10">Albums</h1>
 
 <Row class="justify-center">
-	<Col md={8}>
+	<Col md={8} sm={10}>
 		<Row class="justify-center">
 			{#await fetchAlbums}
-				<div out:fade={{ duration: 1500 }}>
-					<ProgressCircular indeterminate color="red" />
-				</div>
+				<Col md={4} col={12} class="pa-2">
+					<div out:fade={{ duration: 1500 }}>
+						<ProgressCircular indeterminate color="red" />
+					</div>
+				</Col>
 			{:then albums}
 				{#each albums as album, idx}
-					<Col md={4} class="pa-2">
+					<Col md={4} col={12} class="pa-2">
 						<div in:fly={{ y: idx % 2 ? 200 : -200, duration: 500 }}>
 							<AlbumCard {album} />
 						</div>

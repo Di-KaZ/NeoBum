@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { Button } from 'svelte-materialify';
 	import { fade, fly } from 'svelte/transition';
 
 	let ready = false;
+	export let open: () => void;
 
 	onMount(() => (ready = true));
 </script>
@@ -17,5 +19,6 @@
 		<h3 class="text-overline indigo-text" in:fade={{ delay: 150, duration: 500 }}>
 			Neo4j Music Library
 		</h3>
+		<Button text on:click={open}>View</Button>
 	{/if}
 </div>
