@@ -2,7 +2,7 @@
 	"name": "neobum",
 	"version": "0.0.1",
 	"scripts": {
-		"dev": "svelte-kit dev",
+		"dev": "svelte-kit dev --host",
 		"build": "svelte-kit build",
 		"preview": "svelte-kit preview",
 		"lint": "prettier --check . && eslint --ignore-path .gitignore .",
@@ -10,6 +10,7 @@
 	},
 	"dependencies": {
 		"@mdi/js": "^5.9.55",
+		"colorthief": "^2.3.2",
 		"neo4j-driver": "^4.2.3",
 		"neogma": "^1.8.4",
 		"svelte-materialify": "^0.3.10"

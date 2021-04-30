@@ -1,34 +1,21 @@
 <script lang="ts">
-	import { Col, ProgressCircular, Row } from 'svelte-materialify';
-	import { fade, fly } from 'svelte/transition';
-	import AlbumCard from '../components/AlbumCard.svelte';
-	import { getAllbumAll } from '../services/AlbumsService';
-
-	const fetchAlbums = (async () => {
-		return await getAllbumAll();
-	})();
+  import { Col, Row } from 'svelte-materialify';
+  import AlbumCard from '../components/AlbumCard.svelte';
+  import AlbumsService from '../services/AlbumsService';
 </script>
 
-<h1 class="text-h1 text-center pa-10">Albums</h1>
+<h3 class="text-h3 text-center">Albums</h3>
 
 <Row class="justify-center">
-	<Col md={8} sm={10}>
-		<Row class="justify-center">
-			{#await fetchAlbums}
-				<Col md={4} col={12} class="pa-2">
-					<div out:fade={{ duration: 1500 }}>
-						<ProgressCircular indeterminate color="red" />
-					</div>
-				</Col>
-			{:then albums}
-				{#each albums as album, idx}
-					<Col md={4} col={12} class="pa-2">
-						<div in:fly={{ y: idx % 2 ? 200 : -200, duration: 500 }}>
-							<AlbumCard {album} />
-						</div>
-					</Col>
-				{/each}
-			{/await}
-		</Row>
-	</Col>
+  <Col cols={10}>
+    <Row class="justify-center">
+      {#await AlbumsService.getAllbumAll() then albums}
+        {#each albums as album}
+          <Col xl={5} md={6} cols={12}>
+            <AlbumCard {album} />
+          </Col>
+        {/each}
+      {/await}
+    </Row>
+  </Col>
 </Row>

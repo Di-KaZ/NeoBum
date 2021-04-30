@@ -5,7 +5,7 @@
 	export let open: () => void;
 </script>
 
-<AppBar class="red d-flex pa-1" style="position:sticky;width:100%;top:0">
+<AppBar class="d-flex pa-1 red" style="position:sticky;width:100%;top:0">
 	<div class="pointer" slot="icon" on:click={open}>
 		<Icon path={mdiMusicBoxMultiple} />
 	</div>
