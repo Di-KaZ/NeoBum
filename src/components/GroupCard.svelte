@@ -13,8 +13,8 @@
     Row
   } from 'svelte-materialify';
   import type { GroupsInstance } from '../Models/Groups';
-  import PaysService from '../services/PaysServices';
-  import StylesService from '../services/StylesService';
+  import { getGroupPays } from '../services/PaysServices';
+  import { getGroupStyle } from '../services/StylesService';
 
   export let group: GroupsInstance;
 </script>
@@ -23,12 +23,12 @@
   <Row>
     <Col cols={8}>
       <CardTitle class="pa-7">{group.name}</CardTitle>
-      {#await StylesService.getGroupStyle(group) then style}
+      {#await getGroupStyle(group) then style}
         <CardSubtitle class="pl-7">{style.name}</CardSubtitle>
       {/await}
       <div class="pl-7 d-none d-md-block">
-        {#await PaysService.getGroupPays(group) then pays}
-          <Chip label class="purple-text">
+        {#await getGroupPays(group) then pays}
+          <Chip label outlined>
             <Icon path={mdiMapMarker} />
             <span>{pays.name}</span>
           </Chip>

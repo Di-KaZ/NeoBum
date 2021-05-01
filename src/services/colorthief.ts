@@ -1,7 +1,7 @@
 import ColorThief from 'colorthief';
 
 export default new ColorThief();
-export const rgbToHex = (r, g, b) =>
+export const rgbToHex = (r: number, g: number, b: number): string =>
   '#' +
   [r, g, b]
     .map((x) => {

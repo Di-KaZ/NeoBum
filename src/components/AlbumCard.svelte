@@ -11,11 +11,13 @@
     Chip,
     Col,
     Icon,
+    ProgressLinear,
     Row
   } from 'svelte-materialify';
   import type { AlbumsInstance } from '../Models/Albums';
-  import AlbumsService from '../services/AlbumsService';
+  import { getAlbumGroupOrArtist } from '../services/AlbumsService';
   import colorthief, { rgbToHex } from '../services/colorthief';
+  import { getAlbumStyle } from '../services/StylesService';
 
   export let album: AlbumsInstance;
   let cover;
@@ -54,15 +56,21 @@
   <Row>
     <Col cols={8}>
       <CardTitle class="pa-7">{album.name}</CardTitle>
-      {#await AlbumsService.getAlbumGroupOrArtist(album) then group}
+      {#await getAlbumGroupOrArtist(album)}
+        <ProgressLinear class="ma-3" indeterminate />
+      {:then group}
         <CardSubtitle class={`pl-7`} style={`color:${fgColor}`}>{group.name}</CardSubtitle>
       {/await}
       <div class="pl-7 d-none d-md-block">
-        <Chip label class="purple-text">
+        <Chip label outlined style={`color:${fgColor}`}>
           <Icon path={mdiMusicNoteEighth} />
-          <span>genre</span>
+          {#await getAlbumStyle(album)}
+            <ProgressLinear class="ma-3" indeterminate />
+          {:then style}
+            <span>{style.name}</span>
+          {/await}
         </Chip>
-        <Chip label class="purple-text">
+        <Chip label outlined style={`color:${fgColor}`}>
           <span>{album.price}</span><Icon path={mdiCurrencyEur} />
         </Chip>
       </div>

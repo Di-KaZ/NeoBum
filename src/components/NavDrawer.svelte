@@ -7,7 +7,7 @@
   export let close: () => void;
 </script>
 
-<NavigationDrawer {active} index={2} absolute class="pt-15">
+<NavigationDrawer {active} index={2} class="pt-15" fixed>
   <List class="d-flex">
     <ListItem
       on:click={() => {

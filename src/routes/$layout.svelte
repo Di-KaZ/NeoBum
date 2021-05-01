@@ -20,14 +20,15 @@
 
 <MaterialApp>
   <Navbar {open} />
-  <slot {open} />
-  <Overlay index={1} {active} on:click={close} absolute />
+  <slot />
+  <Overlay index={1} {active} on:click={close} fixed />
   <NavDrawer {active} {close} />
   <Footer />
 </MaterialApp>
 
 <style global>
-  body {
+  body,
+  .s-app {
     min-height: 100vh;
   }
 </style>

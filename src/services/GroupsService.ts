@@ -1,19 +1,17 @@
 import { Groups, GroupsInstance } from '../Models/Groups';
 
-export default class GroupsService {
-  /**
-   * Get an album via it's name
-   * @param name name of the album
-   */
-  public static getGroupsByName = async (name: string): Promise<GroupsInstance> => {
-    return Groups.findOne({ where: { name } });
-  };
+/**
+ * Get an album via it's name
+ * @param name name of the album
+ */
+export const getGroupsByName = async (name: string): Promise<GroupsInstance> => {
+  return Groups.findOne({ where: { name } });
+};
 
-  public static getGroupsById = async (id: number): Promise<GroupsInstance> => {
-    return Groups.findOne({ where: { id } });
-  };
+export const getGroupsById = async (id: number): Promise<GroupsInstance> => {
+  return Groups.findOne({ where: { id } });
+};
 
-  public static getGroupsAll = async (limit = 15): Promise<GroupsInstance[]> => {
-    return Groups.findMany({ limit });
-  };
-}
+export const getGroupsAll = async (page = 1, limit = 15): Promise<GroupsInstance[]> => {
+  return Groups.findMany({ limit, skip: limit * (page - 1) });
+};

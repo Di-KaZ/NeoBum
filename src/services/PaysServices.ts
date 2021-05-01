@@ -1,29 +1,50 @@
 import { QueryBuilder, QueryRunner } from 'neogma';
+import { Artists, ArtistsInstance } from '../Models/Artists';
 import { Groups, GroupsInstance } from '../Models/Groups';
 import { Pays, PaysProperties } from '../Models/Pays';
 import type { StylesProperties } from '../Models/Styles';
 import { neogma } from './neogma';
 
-export default class PaysService {
-  public static getGroupPays = async (group: GroupsInstance): Promise<PaysProperties> => {
-    const queryResult = await new QueryBuilder()
-      .match({
-        related: [
-          {
-            model: Groups,
-            where: {
-              ...group.dataValues
-            }
-          },
-          Groups.getRelationshipByAlias('HAIL_FROM'),
-          {
-            model: Pays,
-            identifier: 'pays'
+export const getGroupPays = async (group: GroupsInstance): Promise<PaysProperties> => {
+  const queryResult = await new QueryBuilder()
+    .match({
+      related: [
+        {
+          model: Groups,
+          where: {
+            ...group.dataValues
           }
-        ]
-      })
-      .return('pays')
-      .run(neogma.queryRunner);
-    return QueryRunner.getResultProperties<StylesProperties>(queryResult, 'pays')[0];
-  };
-}
+        },
+        Groups.getRelationshipByAlias('HAIL_FROM'),
+        {
+          model: Pays,
+          identifier: 'pays'
+        }
+      ]
+    })
+    .return('pays')
+    .run(neogma.queryRunner);
+  return QueryRunner.getResultProperties<StylesProperties>(queryResult, 'pays')[0];
+};
+
+export const getArtistsPays = async (artist: ArtistsInstance): Promise<PaysProperties> => {
+  const queryResult = await new QueryBuilder()
+    .match({
+      related: [
+        {
+          model: Artists,
+          where: {
+            ...artist.dataValues
+          }
+        },
+        Artists.getRelationshipByAlias('HAIL_FROM'),
+        {
+          model: Pays,
+          identifier: 'pays'
+        }
+      ]
+    })
+    .return('pays')
+    .run(neogma.queryRunner);
+  return QueryRunner.getResultProperties<StylesProperties>(queryResult, 'pays')[0];
+};
