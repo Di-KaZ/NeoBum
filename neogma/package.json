@@ -2,7 +2,7 @@
   "name": "neogma",
   "version": "1.8.4",
   "description": "Object-Graph-Mapping neo4j framework, Fully-typed with TypeScript, for easy and flexible node and relationship creation",
-  "main": "src/index.js",
+  "main": "src/index.cjs",
   "types": "src/index.d.ts",
   "author": "Jason Athanasoglou <jathanasoglou@outlook.com>",
   "license": "MIT",
