@@ -1,10 +1,10 @@
 <script context="module" lang="ts">
   import { Col, Row } from 'svelte-materialify';
   import type { AlbumsInstance } from '../../Models/Albums';
-  import AlbumsService from '../../services/AlbumsService';
+  import { getAlbumById } from '../../services/AlbumsService';
 
   export async function load({ page }) {
-    const album = await AlbumsService.getAlbumById(+page.params.id);
+    const album = await getAlbumById(+page.params.id);
 
     return {
       props: {
