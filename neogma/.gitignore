@@ -1,0 +1,10 @@
+# node modules
+node_modules
+# environmental variables
+.env
+# built js directory
+dist
+# vscode config
+.vscode
+# test coverage
+coverage
