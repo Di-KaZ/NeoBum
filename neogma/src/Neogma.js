@@ -31,7 +31,7 @@ export class Neogma {
         }
         this.queryRunner = new QueryRunner({
             driver: this.driver,
-            logger: options === null || options === void 0 ? void 0 : options.logger,
+            logger: options?.logger,
         });
     }
 }

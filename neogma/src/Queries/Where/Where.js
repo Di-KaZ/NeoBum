@@ -9,10 +9,10 @@ export const Op = {
     contains: OpContains,
 };
 const isWhereIn = (value) => {
-    return value === null || value === void 0 ? void 0 : value[Op.in];
+    return value?.[Op.in];
 };
 const isWhereContains = (value) => {
-    return value === null || value === void 0 ? void 0 : value[Op.contains];
+    return value?.[Op.contains];
 };
 const isNeo4jSupportedTypes = (value) => {
     const isSupportedSingleType = (value) => {
@@ -132,7 +132,7 @@ export class Where {
         const params = {};
         for (const rawParam of this.rawParams) {
             for (const [identifier, value] of Object.entries(rawParam)) {
-                params[identifier] = Object.assign(Object.assign({}, params[identifier]), value);
+                params[identifier] = { ...params[identifier], ...value };
             }
         }
         // remove all used bind param names from the bind param, since we're gonna set them again from scratch

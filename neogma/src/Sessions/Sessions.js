@@ -1,58 +1,49 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-const isTransaction = (tx) => { var _a; return typeof ((_a = tx === null || tx === void 0 ? void 0 : tx.isOpen) === null || _a === void 0 ? void 0 : _a.call(tx)) === 'boolean'; };
+const isTransaction = (tx) => typeof tx?.isOpen?.() === 'boolean';
 /** runs the callback with a session. It closes it when the callback is done */
-export const getSession = (
+export const getSession = async (
 /** an existing session to use. If a session is given, it'll be used as is */
-runInSession, callback, driver) => __awaiter(void 0, void 0, void 0, function* () {
+runInSession, callback, driver) => {
     if (runInSession) {
         return callback(runInSession);
     }
     const session = driver.session();
     try {
-        const result = yield callback(session);
-        yield session.close();
+        const result = await callback(session);
+        await session.close();
         return result;
     }
     catch (err) {
-        yield session.close();
+        await session.close();
         throw err;
     }
-});
+};
 /** runs the callback with a transaction. It closes it if the callback is successful, and rolls it back if not */
-export const getTransaction = (
+export const getTransaction = async (
 /** an existing transaction or session to use. If a transaction is given, it'll be used as is. If a session is given, it'll be used for creating the transaction */
-runInExisting, callback, driver) => __awaiter(void 0, void 0, void 0, function* () {
+runInExisting, callback, driver) => {
     // if it's a transaction, return it with the callback
     if (isTransaction(runInExisting)) {
         return callback(runInExisting);
     }
     // else get a session (using the runInExisting session if it's passed)
-    return getSession(runInExisting, (session) => __awaiter(void 0, void 0, void 0, function* () {
+    return getSession(runInExisting, async (session) => {
         const transaction = session.beginTransaction();
         try {
-            const result = yield callback(transaction);
-            yield transaction.commit();
+            const result = await callback(transaction);
+            await transaction.commit();
             return result;
         }
         catch (err) {
-            yield transaction.rollback();
+            await transaction.rollback();
             throw err;
         }
-    }), driver);
-});
+    }, driver);
+};
 /** runs the callback with a session or transaction. If any existing Runnable is given, it gets used. Else, a new Session is used */
-export const getRunnable = (runInExisting, callback, driver) => __awaiter(void 0, void 0, void 0, function* () {
+export const getRunnable = async (runInExisting, callback, driver) => {
     if (runInExisting) {
         return callback(runInExisting);
     }
     return getSession(null, callback, driver);
-});
+};
 //# sourceMappingURL=Sessions.js.map

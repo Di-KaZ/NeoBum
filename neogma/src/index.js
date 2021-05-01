@@ -3,6 +3,5 @@ export * from './Neogma';
 export * from './ModelOps';
 export * from './Queries';
 export * from './Sessions';
-import * as neo4jDriver_1 from 'neo4j-driver';
-export { neo4jDriver_1 as neo4jDriver };
+export * as neo4jDriver from 'neo4j-driver';
 //# sourceMappingURL=index.js.map

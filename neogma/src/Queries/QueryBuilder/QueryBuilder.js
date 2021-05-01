@@ -1,12 +1,3 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 import { getRunnable } from '../../Sessions';
 import { NeogmaConstraintError, NeogmaError } from '../../Errors';
 import { int } from 'neo4j-driver';
@@ -401,26 +392,24 @@ export class QueryBuilder {
         return `WHERE ${statement}`;
     }
     /** runs this instance with the given QueryRunner instance */
-    run(
+    async run(
     /** the QueryRunner instance to use */
     queryRunnerOrRunnable, 
     /** an existing session to use. Set it only if the first param is a QueryRunner instance */
     existingSession) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const queryRunner = queryRunnerOrRunnable instanceof QueryRunner
-                ? queryRunnerOrRunnable
-                : QueryBuilder.queryRunner;
-            if (!queryRunner) {
-                throw new NeogmaError('A queryRunner was not given to run this builder. Make sure that the first parameter is a QueryRunner instance, or that QueryBuilder.queryRunner is set');
-            }
-            const sessionToGet = queryRunnerOrRunnable &&
-                !(queryRunnerOrRunnable instanceof QueryRunner)
-                ? queryRunnerOrRunnable
-                : existingSession;
-            return getRunnable(sessionToGet, (session) => __awaiter(this, void 0, void 0, function* () {
-                return queryRunner.run(this.getStatement(), this.getBindParam().get(), session);
-            }), queryRunner.getDriver());
-        });
+        const queryRunner = queryRunnerOrRunnable instanceof QueryRunner
+            ? queryRunnerOrRunnable
+            : QueryBuilder.queryRunner;
+        if (!queryRunner) {
+            throw new NeogmaError('A queryRunner was not given to run this builder. Make sure that the first parameter is a QueryRunner instance, or that QueryBuilder.queryRunner is set');
+        }
+        const sessionToGet = queryRunnerOrRunnable &&
+            !(queryRunnerOrRunnable instanceof QueryRunner)
+            ? queryRunnerOrRunnable
+            : existingSession;
+        return getRunnable(sessionToGet, async (session) => {
+            return queryRunner.run(this.getStatement(), this.getBindParam().get(), session);
+        }, queryRunner.getDriver());
     }
     /** a literal statement to use as is */
     raw(raw) {

@@ -1,12 +1,3 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 import * as uuid from 'uuid';
 import { getRunnable } from '../../Sessions';
 import { Where } from '../Where/Where';
@@ -14,7 +5,7 @@ import { trimWhitespace } from '../../utils/string';
 import { QueryBuilder } from '../QueryBuilder';
 export class QueryRunner {
     constructor(params) {
-        this.create = (params) => __awaiter(this, void 0, void 0, function* () {
+        this.create = async (params) => {
             const { label, data: options } = params;
             const identifier = params.identifier || QueryRunner.identifiers.default;
             const queryBuilder = new QueryBuilder()
@@ -28,19 +19,15 @@ export class QueryRunner {
             // we won't use the queryBuilder bindParams as we've used "options" as a literal
             const parameters = { options };
             return this.run(queryBuilder.getStatement(), parameters, params.session);
-        });
-        this.update = (params) => __awaiter(this, void 0, void 0, function* () {
+        };
+        this.update = async (params) => {
             const { label } = params;
             const data = params.data;
             const identifier = params.identifier || QueryRunner.identifiers.default;
             const where = Where.acquire(params.where);
             const queryBuilder = new QueryBuilder(
             /* clone the where bind param and construct one for the update, as there might be common keys between where and data */
-            where === null || 
-            /* clone the where bind param and construct one for the update, as there might be common keys between where and data */
-            where === void 0 ? void 0 : 
-            /* clone the where bind param and construct one for the update, as there might be common keys between where and data */
-            where.getBindParam().clone());
+            where?.getBindParam().clone());
             queryBuilder.match({
                 identifier,
                 label,
@@ -56,12 +43,12 @@ export class QueryRunner {
                 queryBuilder.return(identifier);
             }
             return queryBuilder.run(this, params.session);
-        });
-        this.delete = (params) => __awaiter(this, void 0, void 0, function* () {
+        };
+        this.delete = async (params) => {
             const { label, detach } = params;
             const where = Where.acquire(params.where);
             const identifier = params.identifier || QueryRunner.identifiers.default;
-            const queryBuilder = new QueryBuilder(where === null || where === void 0 ? void 0 : where.getBindParam());
+            const queryBuilder = new QueryBuilder(where?.getBindParam());
             queryBuilder.match({
                 identifier,
                 label,
@@ -74,9 +61,8 @@ export class QueryRunner {
                 detach,
             });
             return queryBuilder.run(this, params.session);
-        });
-        this.createRelationship = (params) => __awaiter(this, void 0, void 0, function* () {
-            var _a;
+        };
+        this.createRelationship = async (params) => {
             const { source, target, relationship } = params;
             const where = Where.acquire(params.where);
             const relationshipIdentifier = 'r';
@@ -86,13 +72,9 @@ export class QueryRunner {
                 target: target.identifier ||
                     QueryRunner.identifiers.createRelationship.target,
             };
-            const queryBuilder = new QueryBuilder((_a = 
+            const queryBuilder = new QueryBuilder(
             /** the params of the relationship value */
-            where === null || 
-            /** the params of the relationship value */
-            where === void 0 ? void 0 : 
-            /** the params of the relationship value */
-            where.getBindParam()) === null || _a === void 0 ? void 0 : _a.clone());
+            where?.getBindParam()?.clone());
             queryBuilder.match({
                 multiple: [
                     {
@@ -133,18 +115,17 @@ export class QueryRunner {
                 });
             }
             return queryBuilder.run(this, params.session);
-        });
+        };
         /** maps a session object to a uuid, for logging purposes */
         this.sessionIdentifiers = new WeakMap([]);
         this.driver = params.driver;
-        this.logger = (params === null || params === void 0 ? void 0 : params.logger) || null;
+        this.logger = params?.logger || null;
     }
     getDriver() {
         return this.driver;
     }
     log(...val) {
-        var _a;
-        (_a = this.logger) === null || _a === void 0 ? void 0 : _a.call(this, ...val);
+        this.logger?.(...val);
     }
     /** runs a statement */
     run(
@@ -154,7 +135,7 @@ export class QueryRunner {
     parameters, 
     /** the session or transaction for running this query */
     existingSession) {
-        return getRunnable(existingSession, (session) => __awaiter(this, void 0, void 0, function* () {
+        return getRunnable(existingSession, async (session) => {
             parameters = parameters || {};
             /** an identifier to be used for logging purposes */
             let sessionIdentifier = 'Default';
@@ -171,7 +152,7 @@ export class QueryRunner {
             this.log(`\tStatement:`, trimmedStatement);
             this.log(`\tParameters:`, parameters);
             return session.run(trimmedStatement, parameters);
-        }), this.driver);
+        }, this.driver);
     }
 }
 /** default identifiers for the queries */
