@@ -8,14 +8,12 @@
     "lint": "prettier --check . && eslint --ignore-path .gitignore .",
     "format": "prettier --write ."
   },
-  "dependencies": {
+  "devDependencies": {
     "@mdi/js": "^5.9.55",
     "colorthief": "^2.3.2",
     "neo4j-driver": "^4.2.3",
     "neogma": "file:neogma",
-    "svelte-materialify": "^0.3.10"
-  },
-  "devDependencies": {
+    "svelte-materialify": "^0.3.10",
     "@sveltejs/adapter-netlify": "^1.0.0-next.10",
     "@sveltejs/kit": "next",
     "@typescript-eslint/eslint-plugin": "^4.19.0",
