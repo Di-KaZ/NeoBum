@@ -1,7 +1,6 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
   import { mdiCurrencyEur, mdiMusicNoteEighth } from '@mdi/js';
-  import { onDestroy, onMount } from 'svelte';
   import {
     Button,
     Card,
@@ -14,63 +13,35 @@
     ProgressLinear,
     Row
   } from 'svelte-materialify';
-  import type { AlbumsInstance } from '../Models/Albums';
-  import { getAlbumGroupOrArtist } from '../services/AlbumsService';
-  import colorthief, { rgbToHex } from '../services/colorthief';
-  import { getAlbumStyle } from '../services/StylesService';
+  import type { Album } from '../neo4j';
 
-  export let album: AlbumsInstance;
-  let cover;
-  let bgColor = '#fff';
-  let fgColor = '#000';
+  export let album: Album;
 
-  const getBgColor = () => {
-    const [r, g, b] = colorthief.getColor(cover);
-    bgColor = rgbToHex(r, g, b);
-    fgColor = whiteOrBlack();
-  };
-  onMount(() => {
-    cover.crossOrigin = 'Anonymous';
-    if (cover.complete) {
-      const [r, g, b] = colorthief.getColor(cover);
-      bgColor = rgbToHex(r, g, b);
-      fgColor = whiteOrBlack();
-    } else {
-      cover.addEventListener('load', getBgColor);
-    }
-  });
-
-  onDestroy(() => cover.removeEventListener('load', getBgColor));
-
-  const whiteOrBlack = () =>
-    parseInt(bgColor.replace('#', ''), 16) > 0xffffff / 2 ? '#000' : '#fff';
+  const getAlbumGroupOrArtist = async () => Promise.resolve({ name: 'hey' });
+  const getAlbumStyle = async () => Promise.resolve({ name: 'hey' });
 
   const goToAlbumPage = () => goto(`/Albums/${album.id}`);
 </script>
 
-<Card
-  shaped
-  style={`background-color:${bgColor};transition: all 0.3s ease-in-out;color:${fgColor}`}
-  class="transition"
->
+<Card shaped class="transition">
   <Row>
     <Col cols={8}>
       <CardTitle class="pa-7">{album.name}</CardTitle>
-      {#await getAlbumGroupOrArtist(album)}
+      {#await getAlbumGroupOrArtist()}
         <ProgressLinear class="ma-3" indeterminate />
       {:then group}
-        <CardSubtitle class={`pl-7`} style={`color:${fgColor}`}>{group.name}</CardSubtitle>
+        <CardSubtitle class={`pl-7`}>{group.name}</CardSubtitle>
       {/await}
       <div class="pl-7 d-none d-md-block">
-        <Chip label outlined style={`color:${fgColor}`}>
+        <Chip label outlined>
           <Icon path={mdiMusicNoteEighth} />
-          {#await getAlbumStyle(album)}
+          {#await getAlbumStyle()}
             <ProgressLinear class="ma-3" indeterminate />
           {:then style}
-            <span>{style.name}</span>
+            <span>{album.prodYear}</span>
           {/await}
         </Chip>
-        <Chip label outlined style={`color:${fgColor}`}>
+        <Chip label outlined>
           <span>{album.price}</span><Icon path={mdiCurrencyEur} />
         </Chip>
       </div>
@@ -79,7 +50,7 @@
       </CardActions>
     </Col>
     <Col cols={4}>
-      <img bind:this={cover} src={album.cover} alt="cover" />
+      <img src={album.cover} alt="cover" />
     </Col>
   </Row>
 </Card>

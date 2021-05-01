@@ -3,10 +3,13 @@
   import { onMount } from 'svelte';
   import { Button } from 'svelte-materialify';
   import { fade, fly } from 'svelte/transition';
+  import { getAllAlbums } from '../neo4j';
 
   let ready = false;
 
-  onMount(() => (ready = true));
+  onMount(() => {
+    ready = true;
+  });
 </script>
 
 <div class="d-flex justify-center align-center flex-column" style="height: calc(100vh - 104px)">
@@ -21,4 +24,10 @@
     </h3>
     <Button text on:click={() => goto('/Albums')}>View</Button>
   {/if}
+
+  {#await getAllAlbums() then albums}
+    {#each albums as album}
+      {album.prodYear}
+    {/each}
+  {/await}
 </div>
