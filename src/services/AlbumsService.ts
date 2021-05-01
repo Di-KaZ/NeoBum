@@ -2,7 +2,7 @@ import { QueryRunner } from 'neogma';
 import { Albums, AlbumsInstance } from '../Models/Albums';
 import type { ArtistsProperties } from '../Models/Artists';
 import type { GroupsProperties } from '../Models/Groups';
-import { neogma } from './neogma';
+import { neogmaInstance } from './neogma';
 
 //FIXME sveltekit doesnt like classes ATM just revert the change made here to make it functional
 /**
