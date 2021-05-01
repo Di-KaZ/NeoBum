@@ -1194,8 +1194,10 @@ neo4j-driver@^4.2.1, neo4j-driver@^4.2.3:
     text-encoding-utf-8 "^1.0.2"
     uri-js "^4.4.0"
 
-"neogma@file:neogma":
+neogma@^1.8.4:
   version "1.8.4"
+  resolved "https://registry.yarnpkg.com/neogma/-/neogma-1.8.4.tgz#7a1e06baa6a9a2784ceb889b84b81de370744550"
+  integrity sha512-4ZsfXm6l9H0wZ+qxLSFi0e8ZIgcn/KJ6MU/D+Wv6/xUEEx0mdHwxd8XZNT5MYVxus1rzQh+nRZWaXf/vW6/QbA==
   dependencies:
     "@types/revalidator" "^0.3.7"
     clone "^2.1.2"
