@@ -1,12 +1,12 @@
-<script context="module">
-</script>
-
 <script lang="ts">
+  import { onMount } from 'svelte';
   import { MaterialApp, Overlay } from 'svelte-materialify';
   import Footer from '../components/Footer.svelte';
   import Navbar from '../components/Navbar.svelte';
   import NavDrawer from '../components/NavDrawer.svelte';
+  import { initDb } from '../neo4j';
 
+  onMount(() => initDb());
   let active = false;
 
   function close() {

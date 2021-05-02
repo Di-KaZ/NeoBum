@@ -9,6 +9,7 @@
     "format": "prettier --write ."
   },
   "devDependencies": {
+    "neo4j-driver": "^4.2.3",
     "@mdi/js": "^5.9.55",
     "@sveltejs/adapter-netlify": "^1.0.0-next.10",
     "@sveltejs/kit": "next",
@@ -19,7 +20,6 @@
     "eslint": "^7.22.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-svelte3": "^3.2.0",
-    "neo4j-driver": "^4.2.3",
     "postcss": "^8.2.13",
     "prettier": "~2.2.1",
     "prettier-plugin-svelte": "^2.2.0",

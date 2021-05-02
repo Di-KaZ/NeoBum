@@ -7,10 +7,19 @@ import type { IntrumentProprieties } from './types/Instruments';
 import type { PaysProperties } from './types/Pays';
 import type { StyleProperties } from './types/Style';
 
-export const db = neo4j.driver(
-  import.meta.env.VITE_NEO4J_URL,
-  neo4j.auth.basic(import.meta.env.VITE_NEO4J_USERNAME, import.meta.env.VITE_NEO4J_PASSWORD)
-);
+let db = null;
+
+/**
+ * Init Neo4j db (fix because svletekit prod build is wierd...or am I ? 🤔)
+ * @returns
+ */
+export const initDb = (): neo4j.Driver => {
+  if (db) return;
+  db = neo4j.driver(
+    import.meta.env.VITE_NEO4J_URL,
+    neo4j.auth.basic(import.meta.env.VITE_NEO4J_USERNAME, import.meta.env.VITE_NEO4J_PASSWORD)
+  );
+};
 
 type nodeTypes =
   | AlbumProperties
