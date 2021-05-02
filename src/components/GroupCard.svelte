@@ -1,6 +1,6 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
-  import { mdiMapMarker } from '@mdi/js';
+  import * as mdi from '@mdi/js';
   import {
     Button,
     Card,
@@ -28,7 +28,7 @@
       <div class="pl-7 d-none d-md-block">
         {#await getGroupPays(group) then pays}
           <Chip label outlined>
-            <Icon path={mdiMapMarker} />
+            <Icon path={mdi.mdiMapMarker} />
             <span>{pays.name}</span>
           </Chip>
         {/await}

@@ -1,4 +1,4 @@
-import Builder, { Direction } from '@neode/querybuilder';
+import Builder, * as querybuilder from '@neode/querybuilder';
 import * as neo4j from 'neo4j-driver';
 import type { AlbumProperties } from './types/Album';
 import type { ArtistProperties } from './types/Artist';
@@ -79,9 +79,9 @@ export const getOne = async <nodeTypes>({
 export const getAlbumStyle = async (album: AlbumProperties): Promise<StyleProperties> => {
   const { cypher, params } = new Builder()
     .match('a', 'Album', { id: album.id })
-    .relationship('HAS_MADE', Direction.INCOMING)
+    .relationship('HAS_MADE', querybuilder.Direction.INCOMING)
     .to('art')
-    .relationship('HAS_STYLE', Direction.OUTGOING)
+    .relationship('HAS_STYLE', querybuilder.Direction.OUTGOING)
     .to('res', 'Style')
     .return('res')
     .build();
@@ -92,7 +92,7 @@ export const getAlbumStyle = async (album: AlbumProperties): Promise<StyleProper
 export const getAlbumGroupOrArtist = async (album: AlbumProperties): Promise<StyleProperties> => {
   const { cypher, params } = new Builder()
     .match('a', 'Album', { id: album.id })
-    .relationship('HAS_MADE', Direction.INCOMING)
+    .relationship('HAS_MADE', querybuilder.Direction.INCOMING)
     .to('res')
     .return('res')
     .build();
@@ -103,7 +103,7 @@ export const getAlbumGroupOrArtist = async (album: AlbumProperties): Promise<Sty
 export const getArtistPays = async (artist: ArtistProperties): Promise<PaysProperties> => {
   const { cypher, params } = new Builder()
     .match('a', 'Artist', { id: artist.id })
-    .relationship('HAIL_FROM', Direction.OUTGOING)
+    .relationship('HAIL_FROM', querybuilder.Direction.OUTGOING)
     .to('res')
     .return('res')
     .build();
@@ -114,7 +114,7 @@ export const getArtistPays = async (artist: ArtistProperties): Promise<PaysPrope
 export const getGroupStyle = async (group: GroupProperties): Promise<StyleProperties> => {
   const { cypher, params } = new Builder()
     .match('a', 'Artist', { id: group.id })
-    .relationship('HAS_STYLE', Direction.OUTGOING)
+    .relationship('HAS_STYLE', querybuilder.Direction.OUTGOING)
     .to('res')
     .return('res')
     .build();
@@ -125,7 +125,7 @@ export const getGroupStyle = async (group: GroupProperties): Promise<StyleProper
 export const getGroupPays = async (group: ArtistProperties): Promise<PaysProperties> => {
   const { cypher, params } = new Builder()
     .match('a', 'Group', { id: group.id })
-    .relationship('HAIL_FROM', Direction.OUTGOING)
+    .relationship('HAIL_FROM', querybuilder.Direction.OUTGOING)
     .to('res')
     .return('res')
     .build();
@@ -136,7 +136,7 @@ export const getGroupPays = async (group: ArtistProperties): Promise<PaysPropert
 export const getArtistStyle = async (artist: GroupProperties): Promise<StyleProperties> => {
   const { cypher, params } = new Builder()
     .match('a', 'Group', { id: artist.id })
-    .relationship('HAS_STYLE', Direction.OUTGOING)
+    .relationship('HAS_STYLE', querybuilder.Direction.OUTGOING)
     .to('res')
     .return('res')
     .build();

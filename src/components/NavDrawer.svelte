@@ -1,6 +1,6 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
-  import { mdiAccountGroup, mdiAccountMusic, mdiAlbum } from '@mdi/js';
+  import * as mdi from '@mdi/js';
   import { Icon, List, ListItem, NavigationDrawer } from 'svelte-materialify';
 
   export let active: boolean;
@@ -16,7 +16,7 @@
       }}
     >
       <span slot="prepend">
-        <!-- <Icon class="red-text" path={} /> -->
+        <Icon class="red-text" path={mdi.mdiHome} />
       </span>
       Home</ListItem
     >
@@ -27,7 +27,7 @@
       }}
     >
       <span slot="prepend">
-        <Icon class="red-text" path={mdiAlbum} />
+        <Icon class="red-text" path={mdi.mdiAlbum} />
       </span>
       Albums</ListItem
     >
@@ -37,7 +37,7 @@
         close();
       }}
       ><span slot="prepend">
-        <Icon class="red-text" path={mdiAccountMusic} />
+        <Icon class="red-text" path={mdi.mdiAccountMusic} />
       </span>Artists</ListItem
     >
     <ListItem
@@ -46,7 +46,7 @@
         close();
       }}
       ><span slot="prepend">
-        <Icon class="red-text" path={mdiAccountGroup} />
+        <Icon class="red-text" path={mdi.mdiAccountGroup} />
       </span>Groups</ListItem
     >
   </List>

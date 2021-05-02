@@ -1,6 +1,6 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
-  import { mdiCurrencyEur, mdiMusicNoteEighth } from '@mdi/js';
+  import * as mdi from '@mdi/js';
   import {
     Button,
     Card,
@@ -35,7 +35,7 @@
       {/await}
       <div class="pl-7 d-none d-md-block">
         <Chip label outlined>
-          <Icon path={mdiMusicNoteEighth} />
+          <Icon path={mdi.mdiMusicNoteEighth} />
           {#await getAlbumStyle(album)}
             <ProgressLinear class="ma-3" indeterminate />
           {:then style}
@@ -43,7 +43,7 @@
           {/await}
         </Chip>
         <Chip label outlined>
-          <span>{album.price}</span><Icon path={mdiCurrencyEur} />
+          <span>{album.price}</span><Icon path={mdi.mdiCurrencyEur} />
         </Chip>
       </div>
       <CardActions>

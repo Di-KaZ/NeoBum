@@ -1,6 +1,6 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
-  import { mdiMapMarker } from '@mdi/js';
+  import * as mdi from '@mdi/js';
   import {
     Button,
     Card,
@@ -33,7 +33,7 @@
           <ProgressLinear class="ma-3" indeterminate />
         {:then pays}
           <Chip label outlined>
-            <Icon path={mdiMapMarker} />
+            <Icon path={mdi.mdiMapMarker} />
             <span>{pays.name}</span>
           </Chip>
         {/await}
