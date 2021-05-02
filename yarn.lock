@@ -95,6 +95,14 @@
     esbuild "^0.11.12"
     toml "^3.0.0"
 
+"@sveltejs/adapter-vercel@next":
+  version "1.0.0-next.15"
+  resolved "https://registry.yarnpkg.com/@sveltejs/adapter-vercel/-/adapter-vercel-1.0.0-next.15.tgz#1b86b62374d85bc2d9b9bfa31d5bf73f24900aa6"
+  integrity sha512-Fb85t1fktFP46HZEjmlF/TN9k95grger27FpvsKaNXSz1VTdKS8Sbq3l5hROetkRIgXzAfOb8FlJyLVpz9Go1g==
+  dependencies:
+    "@sveltejs/kit" "1.0.0-next.91"
+    esbuild "^0.11.12"
+
 "@sveltejs/kit@1.0.0-next.91":
   version "1.0.0-next.91"
   resolved "https://registry.yarnpkg.com/@sveltejs/kit/-/kit-1.0.0-next.91.tgz#9adc21d4b645ace3a2025b230c6219bc86653bc8"
