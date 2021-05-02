@@ -1,1 +1,1 @@
-web: svelte-kit preview
+web: yarn dev
