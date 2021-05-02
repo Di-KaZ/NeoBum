@@ -6,3 +6,4 @@ node_modules
 dump.sql
 .env
 yarn-error.log
+.vercel_build_output
