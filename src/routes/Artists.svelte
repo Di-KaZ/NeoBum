@@ -3,7 +3,7 @@
   import { fly } from 'svelte/transition';
   import ArtistCard from '../components/ArtistCard.svelte';
   import Pagination from '../components/Pagination.svelte';
-  import { getArtistsAll } from '../services/ArtistsService';
+  import { getPage } from '../neo4j';
 
   let activePage = 1;
 </script>
@@ -16,7 +16,7 @@
 <Row class="justify-center">
   <Col cols={10}>
     <Row class="justify-start">
-      {#await getArtistsAll(activePage) then artists}
+      {#await getPage('Artist', activePage) then artists}
         {#each artists as artist, idx}
           <Col sm={6} md={4} cols={12}>
             <div in:fly={{ y: 100, delay: (idx * 100) / 2 }}>

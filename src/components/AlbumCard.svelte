@@ -13,12 +13,10 @@
     ProgressLinear,
     Row
   } from 'svelte-materialify';
-  import type { Album } from '../neo4j';
+  import { getAlbumGroupOrArtist, getAlbumStyle } from '../neo4j';
+  import type { AlbumProperties } from '../types/Album';
 
-  export let album: Album;
-
-  const getAlbumGroupOrArtist = async () => Promise.resolve({ name: 'hey' });
-  const getAlbumStyle = async () => Promise.resolve({ name: 'hey' });
+  export let album: AlbumProperties;
 
   const goToAlbumPage = () => goto(`/Albums/${album.id}`);
 </script>
@@ -27,18 +25,21 @@
   <Row>
     <Col cols={8}>
       <CardTitle class="pa-7">{album.name}</CardTitle>
-      {#await getAlbumGroupOrArtist()}
+      {#await getAlbumGroupOrArtist(album)}
         <ProgressLinear class="ma-3" indeterminate />
       {:then group}
-        <CardSubtitle class={`pl-7`}>{group.name}</CardSubtitle>
+        <CardSubtitle class={`pl-7`}
+          >{group.name}
+          <span class="red-text font-weight-bold">{album.prodYear}</span></CardSubtitle
+        >
       {/await}
       <div class="pl-7 d-none d-md-block">
         <Chip label outlined>
           <Icon path={mdiMusicNoteEighth} />
-          {#await getAlbumStyle()}
+          {#await getAlbumStyle(album)}
             <ProgressLinear class="ma-3" indeterminate />
           {:then style}
-            <span>{album.prodYear}</span>
+            <span>{style.name}</span>
           {/await}
         </Chip>
         <Chip label outlined>

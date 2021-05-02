@@ -13,11 +13,10 @@
     ProgressLinear,
     Row
   } from 'svelte-materialify';
-  import type { ArtistsInstance } from '../Models/Artists';
-  import { getArtistsPays } from '../services/PaysServices';
-  import { getArtistStyle } from '../services/StylesService';
+  import { getArtistPays, getArtistStyle } from '../neo4j';
+  import type { ArtistProperties } from '../types/Artist';
 
-  export let artist: ArtistsInstance;
+  export let artist: ArtistProperties;
 </script>
 
 <Card>
@@ -30,7 +29,7 @@
         <CardSubtitle class="pl-7">{style ? style.name : ''}</CardSubtitle>
       {/await}
       <div class="pl-7 d-none d-md-block">
-        {#await getArtistsPays(artist)}
+        {#await getArtistPays(artist)}
           <ProgressLinear class="ma-3" indeterminate />
         {:then pays}
           <Chip label outlined>

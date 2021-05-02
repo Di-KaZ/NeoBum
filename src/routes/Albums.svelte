@@ -1,13 +1,10 @@
-<script context="module">
+<script lang="ts">
   import { Col, Row } from 'svelte-materialify';
   import { fly } from 'svelte/transition';
   import AlbumCard from '../components/AlbumCard.svelte';
   import Pagination from '../components/Pagination.svelte';
-  import { getAllAlbums } from '../neo4j';
-</script>
+  import { getPage } from '../neo4j';
 
-<script lang="ts">
-  const findAlbumPage = async () => Promise.resolve([]);
   let activePage = 1;
 </script>
 
@@ -18,7 +15,7 @@
 <Row class="justify-center">
   <Col cols={10}>
     <Row class="justify-center">
-      {#await getAllAlbums() then albums}
+      {#await getPage('Album', activePage) then albums}
         {#each albums as album, idx}
           <Col xl={5} md={6} cols={12}>
             <div in:fly={{ y: 100, delay: (idx * 100) / 2 }}>

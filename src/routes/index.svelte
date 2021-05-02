@@ -3,7 +3,6 @@
   import { onMount } from 'svelte';
   import { Button } from 'svelte-materialify';
   import { fade, fly } from 'svelte/transition';
-  import { getAllAlbums } from '../neo4j';
 
   let ready = false;
 
@@ -16,7 +15,7 @@
   {#if ready}
     <div class="text-h1 d-flex">
       <span class="red-text" in:fly={{ y: -200, duration: 700 }}>Neo</span>
-      <span class="red-text" in:fly={{ y: 200, duration: 700 }}>Bum</span>
+      <span class="purple-text" in:fly={{ y: 200, duration: 700 }}>Bum</span>
     </div>
     <hr style="width: 10%;height:3px;border-radius:5px;border:0px;" class="black ma-2 " />
     <h3 class="text-overline indigo-text" in:fade={{ delay: 150, duration: 500 }}>
@@ -24,10 +23,4 @@
     </h3>
     <Button text on:click={() => goto('/Albums')}>View</Button>
   {/if}
-
-  {#await getAllAlbums() then albums}
-    {#each albums as album}
-      {album.prodYear}
-    {/each}
-  {/await}
 </div>

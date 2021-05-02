@@ -12,11 +12,10 @@
     Icon,
     Row
   } from 'svelte-materialify';
-  import type { GroupsInstance } from '../Models/Groups';
-  import { getGroupPays } from '../services/PaysServices';
-  import { getGroupStyle } from '../services/StylesService';
+  import { getGroupPays, getGroupStyle } from '../neo4j';
+  import type { GroupProperties } from '../types/Group';
 
-  export let group: GroupsInstance;
+  export let group: GroupProperties;
 </script>
 
 <Card>
