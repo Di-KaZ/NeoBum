@@ -7,7 +7,10 @@ import type { IntrumentProprieties } from './types/Instruments';
 import type { PaysProperties } from './types/Pays';
 import type { StyleProperties } from './types/Style';
 
-export const db = neo4j.driver('bolt://localhost:7687', neo4j.auth.basic('neo4j', '1234'));
+export const db = neo4j.driver(
+  import.meta.env.VITE_NEO4J_URL,
+  neo4j.auth.basic(import.meta.env.VITE_NEO4J_USERNAME, import.meta.env.VITE_NEO4J_PASSWORD)
+);
 
 type nodeTypes =
   | AlbumProperties

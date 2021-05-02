@@ -1,7 +1,5 @@
-<script context="module" lang="ts">
+<!-- <script context="module" lang="ts">
   import { Col, Row } from 'svelte-materialify';
-  import type { AlbumsInstance } from '../../Models/Albums';
-  import { getAlbumById } from '../../services/AlbumsService';
 
   export async function load({ page }) {
     const album = await getAlbumById(+page.params.id);
@@ -41,4 +39,4 @@
     width: 30vh;
     height: 30vh;
   }
-</style>
+</style> -->
