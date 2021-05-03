@@ -1,1 +1,1 @@
-web: yarn preview
+worker: PORT=1234 node app.js node dist/index.js

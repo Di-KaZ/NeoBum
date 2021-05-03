@@ -7,3 +7,4 @@ dump.sql
 .env
 yarn-error.log
 .vercel_build_output
+dist

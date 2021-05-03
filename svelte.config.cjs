@@ -1,4 +1,5 @@
 const preprocess = require('svelte-preprocess');
+const node = require('@sveltejs/adapter-node');
 /** @type {import('@sveltejs/kit').Config} */
 module.exports = {
   // Consult https://github.com/sveltejs/svelte-preprocess
@@ -6,6 +7,7 @@ module.exports = {
   preprocess: preprocess(),
   kit: {
     // hydrate the <div id="svelte"> element in src/app.html
+    adapter: node({ out: 'dist' }),
     target: '#svelte',
     vite: {
       optimizeDeps: {

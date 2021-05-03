@@ -6,15 +6,15 @@
     "build": "svelte-kit build --verbose",
     "preview": "svelte-kit preview",
     "lint": "prettier --check . && eslint --ignore-path .gitignore .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "start": "sirv build --single"
   },
-  "dependencies": {
-    "@sveltejs/kit": "next",
-    "svelte-preprocess": "^4.7.2",
+  "devDependencies": {
     "@mdi/js": "^5.9.55",
     "@neode/querybuilder": "^0.1.8",
     "@sveltejs/adapter-netlify": "^1.0.0-next.10",
     "@sveltejs/adapter-vercel": "next",
+    "@sveltejs/kit": "next",
     "@typescript-eslint/eslint-plugin": "^4.19.0",
     "@typescript-eslint/parser": "^4.19.0",
     "colorthief": "^2.3.2",
@@ -29,9 +29,13 @@
     "sass": "^1.32.11",
     "svelte": "^3.29.0",
     "svelte-materialify": "^0.3.10",
+    "svelte-preprocess": "^4.7.2",
     "tslib": "^2.0.0",
     "typescript": "^4.0.0",
     "vite": "^2.2.3"
+  },
+  "dependencies": {
+    "@sveltejs/adapter-node": "^1.0.0-next.17"
   },
   "type": "module"
 }
