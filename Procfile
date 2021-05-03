@@ -1,1 +1,1 @@
-worker: PORT=1234 node app.js node dist/index.js
+worker: PORT=1234 node dist/index.js
