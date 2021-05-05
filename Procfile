@@ -1,1 +1,1 @@
-web: PORT=80 node dist/index.js
+web: PORT=$PORT node dist/index.js
