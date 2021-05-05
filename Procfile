@@ -1,1 +1,1 @@
-worker: PORT=5000 node dist/index.js
+web: PORT=5000 node dist/index.js
