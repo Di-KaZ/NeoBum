@@ -1,7 +1,5 @@
 ![Logo](./github_ressources/logo.png)
 
-# Neo Bum
-
 #### Neo4j and Sveltekit school project
 
 #### Feature
@@ -12,16 +10,16 @@
 - [ ] detailled views (albums/artist/groups)
 - [ ] Add more content ?
 
-#### How to launch
+## How to launch
 
-##### - The easy way with Docker
+### - The easy way with Docker
 
 Install docker and simply run `docker-compose up` in the root directory of this repo
 
 > The website is availible on _localhost:3000_
 > The Neo4j bdd is availible on _localhost:7687_ via **bolt protocol**
 
-##### - The hard way manually
+### - The hard way manually
 
 They are two part on the project :
 
