@@ -44,15 +44,26 @@ export const mapper = <nodeTypes>(record: neo4j.Record): nodeTypes => {
  * @param pageSize size of one page
  * @returns
  */
-export const getPage = async (label: Label, page = 1, pageSize = 14): Promise<nodeTypes[]> => {
-  const result = await db.session().run(
-    new Builder()
-      .match('res', label)
-      .return('res')
-      .skip((page - 1) * pageSize)
-      .limit(pageSize)
-      .toString()
-  );
+export const getPage = async (
+  label: Label,
+  page = 1,
+  pageSize = 14,
+  props = { name: '' }
+): Promise<nodeTypes[]> => {
+  const builder = new Builder().match('res', label);
+  if (props.name !== null && props.name !== '') {
+    builder
+      .with('toLower(res.name) as lower_name, res')
+      .whereContains('lower_name', props.name.toLowerCase());
+  }
+  builder
+    .return('res')
+    .skip((page - 1) * pageSize)
+    .limit(pageSize);
+  const { cypher, params } = builder.build();
+  console.log(cypher, params);
+
+  const result = await db.session().run(cypher, params);
   return result.records.map((r) => mapper<nodeTypes>(r));
 };
 

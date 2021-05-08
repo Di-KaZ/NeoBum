@@ -4,6 +4,7 @@
   import GroupCard from '../components/GroupCard.svelte';
   import Pagination from '../components/Pagination.svelte';
   import { getPage } from '../neo4j';
+  import { searchStore } from '../searchStore';
 
   let activePage = 1;
 </script>
@@ -16,7 +17,7 @@
 <Row class="justify-center">
   <Col cols={10}>
     <Row class="justify-start">
-      {#await getPage('Group', activePage) then groups}
+      {#await getPage('Group', activePage, 14, { name: $searchStore }) then groups}
         {#each groups as group, idx}
           <Col sm={6} md={4} cols={12}>
             <div in:fly={{ y: 100, delay: (idx * 100) / 2 }}>

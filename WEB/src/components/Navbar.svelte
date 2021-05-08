@@ -1,6 +1,7 @@
 <script lang="ts">
   import * as mdi from '@mdi/js';
   import { AppBar, Button, Icon, TextField } from 'svelte-materialify';
+  import { searchStore } from '../searchStore';
 
   export let open: () => void;
 </script>
@@ -11,8 +12,7 @@
   </div>
   <span class="pointer" slot="title" on:click={open}>Neo Bum</span>
   <div style="flex-grow:4" />
-  <!-- FIXME WHITE -->
-  <TextField flat solo placeholder="Search" class="mt-2" />
+  <TextField flat solo placeholder="Search" class="mt-2" bind:value={$searchStore} />
   <Button class="white" fab>
     <Icon path={mdi.mdiMagnify} />
   </Button>

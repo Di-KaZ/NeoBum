@@ -1,11 +1,11 @@
 ![Logo](./github_ressources/logo.png)
 
-#### Neo4j and Sveltekit school project
+## Neo4j and Sveltekit school project
 
 #### Feature
 
 - [x] Paginated category (albums/artists/groups)
-- [ ] Simple search
+- [x] Simple search
 - [ ] Advanced search with filters
 - [ ] detailled views (albums/artist/groups)
 - [ ] Add more content ?
