@@ -1,9 +1,10 @@
 ![Logo](./github_ressources/logo.png)
-#Neo Bum
+
+# Neo Bum
 
 #### Neo4j and Sveltekit school project
 
-####Feature
+#### Feature
 
 - [x] Paginated category (albums/artists/groups)
 - [ ] Simple search
