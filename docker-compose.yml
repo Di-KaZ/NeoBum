@@ -1,0 +1,22 @@
+version: "3"
+services:
+  website:
+    build:
+      context: ./WEB
+    ports:
+      - "3000:3000"
+    depends_on:
+      - "db"
+  db:
+	container_name: db
+    image: marcellodesales/neo4j-with-cypher-seed:latest
+    environment:
+      NEO4J_AUTH: none
+    ports:
+      - "7687:7687"
+    volumes:
+      #   - ./BDD/neo4j/data:/data
+      - ./BDD/neo4j/import:/var/lib/neo4j/import/
+      - ./BDD/neo4j/conf:/conf
+      #   - ./BDD/neo4j/logs:/logs
+      - ./BDD/cyphers:/cyphers

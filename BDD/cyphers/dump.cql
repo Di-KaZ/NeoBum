@@ -2,17 +2,26 @@
 
 // Import styles
 LOAD CSV WITH HEADERS FROM 'file:///styles.csv' AS row
-MERGE (s:Style {name: row.name});
+MERGE (s:Style {name: row.name})
+
+WITH count(*) as dummy // fix multtple statement query not allowd in dokcer...
+
 
 // Import pays
 
 LOAD CSV WITH HEADERS FROM 'file:///pays.csv' AS row
-MERGE (s:Pays {name: row.name});
+MERGE (s:Pays {name: row.name})
+
+WITH count(*) as dummy // fix multtple statement query not allowd in dokcer...
+
 
 
 // imports instruments
 LOAD CSV WITH HEADERS FROM 'file:///instruments.csv' AS row
-MERGE (s:Instrument {name: row.name});
+MERGE (s:Instrument {name: row.name})
+
+WITH count(*) as dummy // fix multtple statement query not allowd in dokcer...
+
 
 
 // imports artists (groups)
@@ -23,7 +32,10 @@ MATCH (p:Pays {name: row.pays})
 MERGE (a:Group {id: row.id})
 SET a.name = row.name
 MERGE (a)-[:HAS_STYLE]->(s)
-MERGE (a)-[:HAIL_FROM]->(p);
+MERGE (a)-[:HAIL_FROM]->(p)
+
+WITH count(*) as dummy // fix multtple statement query not allowd in dokcer...
+ // fix multtple statement query not allowd in dokcer...
 
 // imports artists (singer)
 
@@ -34,7 +46,10 @@ MATCH (p:Pays {name: row.pays})
 MERGE (a:Artist {id: row.id})
 SET a.name = row.name
 MERGE (a)-[:HAS_STYLE]->(s)
-MERGE (a)-[:HAIL_FROM]->(p);
+MERGE (a)-[:HAIL_FROM]->(p)
+
+WITH count(*) as dummy // fix multtple statement query not allowd in dokcer...
+
 
 // imports artists (musician)
 
@@ -46,7 +61,9 @@ MERGE (a:Artist {id: row.id})
 SET a.name = row.name
 MERGE (a)-[:HAIL_FROM]->(p)
 MERGE (a)-[:PLAY]->(i)
-MERGE (a)<-[:COMPOSED_OF]-(grp);
+MERGE (a)<-[:COMPOSED_OF]-(grp)
+
+WITH count(*) as dummy // fix multtple statement query not allowd in dokcer...
 
 
 // Imports  albums
@@ -58,5 +75,3 @@ SET a.cover = row.cover
 SET a.prodYear = toInteger(row.prodYear)
 SET a.price = toFloat(row.price)
 MERGE (a)<-[:HAS_MADE]-(art);
-
-

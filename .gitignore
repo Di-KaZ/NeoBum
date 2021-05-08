@@ -8,3 +8,4 @@ dump.sql
 yarn-error.log
 .vercel_build_output
 dist
+BDD/neo4j/data/transactions

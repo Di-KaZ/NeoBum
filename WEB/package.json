@@ -9,7 +9,7 @@
     "format": "prettier --write .",
     "start": "sirv build --single"
   },
-  "dependencies": {
+  "devDependencies": {
     "@sveltejs/adapter-node": "^1.0.0-next.17",
     "@mdi/js": "^5.9.55",
     "@neode/querybuilder": "^0.1.8",
