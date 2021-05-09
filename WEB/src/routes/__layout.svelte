@@ -1,12 +1,16 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { MaterialApp, Overlay } from 'svelte-materialify';
+  import { initThief } from '../colorthief';
   import Footer from '../components/Footer.svelte';
   import Navbar from '../components/Navbar.svelte';
   import NavDrawer from '../components/NavDrawer.svelte';
   import { initDb } from '../neo4j';
 
-  onMount(() => initDb());
+  onMount(() => {
+    initDb();
+    initThief();
+  });
   let active = false;
 
   function close() {

@@ -1,6 +1,5 @@
 <script lang="ts">
   import { Col, Row } from 'svelte-materialify';
-  import { fly } from 'svelte/transition';
   import AlbumCard from '../components/AlbumCard.svelte';
   import Pagination from '../components/Pagination.svelte';
   import { getPage } from '../neo4j';
@@ -19,9 +18,7 @@
       {#await getPage('Album', activePage, 14, { name: $searchStore }) then albums}
         {#each albums as album, idx}
           <Col xl={5} md={6} cols={12}>
-            <div in:fly={{ y: 100, delay: (idx * 100) / 2 }}>
-              <AlbumCard {album} />
-            </div>
+            <AlbumCard {album} {idx} />
           </Col>
         {/each}
         {#if !albums.length}

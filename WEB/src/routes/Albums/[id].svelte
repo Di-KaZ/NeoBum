@@ -1,9 +1,10 @@
-<!-- <script context="module" lang="ts">
+<script context="module" lang="ts">
+  import type { AlbumProperties } from 'src/types/Album';
   import { Col, Row } from 'svelte-materialify';
+  import { getById } from '../../neo4j';
 
   export async function load({ page }) {
-    const album = await getAlbumById(+page.params.id);
-
+    const album = await getById('Album', +page.params.id);
     return {
       props: {
         album
@@ -13,7 +14,7 @@
 </script>
 
 <script lang="ts">
-  export let album: AlbumsInstance;
+  export let album: AlbumProperties;
 </script>
 
 <Row class="justify-center align-center" style="width:100vw;height:calc(100vh - 68px);">
@@ -39,4 +40,4 @@
     width: 30vh;
     height: 30vh;
   }
-</style> -->
+</style>

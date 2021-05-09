@@ -13,7 +13,7 @@ let db = null;
  * Init Neo4j db (fix because svletekit prod build is wierd...or am I ? 🤔)
  * @returns
  */
-export const initDb = (): neo4j.Driver => {
+export const initDb = (): void => {
   if (db) return;
   db = neo4j.driver(
     import.meta.env.VITE_NEO4J_URL,
@@ -51,6 +51,8 @@ export const getPage = async (
   props = { name: '' }
 ): Promise<nodeTypes[]> => {
   const builder = new Builder().match('res', label);
+
+  // add search by name
   if (props.name !== null && props.name !== '') {
     builder
       .with('toLower(res.name) as lower_name, res')
@@ -64,7 +66,7 @@ export const getPage = async (
   console.log(cypher, params);
 
   const result = await db.session().run(cypher, params);
-  return result.records.map((r) => mapper<nodeTypes>(r));
+  return result.records.map((r: neo4j.Record) => mapper<nodeTypes>(r));
 };
 
 /**
@@ -74,25 +76,14 @@ export const getPage = async (
  * @param value value of the identifier
  * @returns node
  */
-export const getOne = async <nodeTypes>({
-  label,
-  identifier,
-  value
-}: {
-  label: Label;
-  identifier: string;
-  value: string;
-}): Promise<nodeTypes> => {
-  const result = await db
-    .session()
-    .run(
-      new Builder()
-        .match('res', label)
-        .where(`res.${identifier}`, value)
-        .return('res')
-        .limit(1)
-        .toString()
-    );
+export const getById = async <nodeTypes>(label: Label, value: number): Promise<nodeTypes> => {
+  const { cypher, params } = new Builder()
+    .match('res', label)
+    .where(`res.id`, value)
+    .return('res')
+    .limit(1)
+    .build();
+  const result = await db.session().run(cypher, params);
   return mapper<nodeTypes>(result.records[0]);
 };
 
