@@ -100,7 +100,9 @@ export const getAlbumStyle = async (album: AlbumProperties): Promise<StyleProper
   return mapper<StyleProperties>(result.records[0]);
 };
 
-export const getAlbumGroupOrArtist = async (album: AlbumProperties): Promise<StyleProperties> => {
+export const getAlbumGroupOrArtist = async (
+  album: AlbumProperties
+): Promise<ArtistProperties | GroupProperties> => {
   const { cypher, params } = new Builder()
     .match('a', 'Album', { id: album.id })
     .relationship('HAS_MADE', querybuilder.Direction.INCOMING)
@@ -108,7 +110,19 @@ export const getAlbumGroupOrArtist = async (album: AlbumProperties): Promise<Sty
     .return('res')
     .build();
   const result = await db.session().run(cypher, params);
-  return mapper<StyleProperties>(result.records[0]);
+  return mapper<ArtistProperties | GroupProperties>(result.records[0]);
+};
+
+export const getMemberOfGroup = async (group: GroupProperties): Promise<ArtistProperties[]> => {
+  console.log(group);
+  const { cypher, params } = new Builder()
+    .match('a', 'Group', { id: group.id })
+    .relationship('COMPOSED_OF', querybuilder.Direction.OUTGOING)
+    .to('res')
+    .return('res')
+    .build();
+  const result = await db.session().run(cypher, params);
+  return result.records.map((r: neo4j.Record) => mapper<ArtistProperties>(r));
 };
 
 export const getArtistPays = async (artist: ArtistProperties): Promise<PaysProperties> => {

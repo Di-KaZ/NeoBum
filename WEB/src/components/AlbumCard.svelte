@@ -31,11 +31,7 @@
 <div in:fly={{ y: 100, delay: (idx * 100) / 2 }}>
   <Card
     shaped
-    style={`${
-      colors.bgColor
-        ? `background: ${colors.bgColor} !important; color: ${colors.fgColor} !important; transition: background ease-in-out .3s`
-        : ''
-    }`}
+    style={`background: ${colors.bgColor} !important; color: ${colors.fgColor} !important; transition: background ease-in-out .3s`}
   >
     <Row>
       <Col cols={8}>
@@ -43,30 +39,35 @@
         {#await getAlbumGroupOrArtist(album)}
           <ProgressLinear class="ma-3" indeterminate />
         {:then group}
-          <CardSubtitle class={`pl-7`}
-            >{group.name}
-            <span class="red-text font-weight-bold">{album.prodYear}</span></CardSubtitle
+          <CardSubtitle class={`pl-7`} style={`color: ${colors.fgColor} !important;`}>
+            {group.name}
+            <span class="font-weight-bold" style={`color: ${colors.fgColor} !important;`}
+              >{album.prodYear}</span
+            ></CardSubtitle
           >
         {/await}
         <div class="pl-7 d-none d-md-block">
           <Chip label outlined style={`color: ${colors.fgColor} !important;`}>
-            <Icon path={mdi.mdiMusicNoteEighth} />
+            <Icon path={mdi.mdiMusicNoteEighth} style={`color: ${colors.fgColor} !important;`} />
             {#await getAlbumStyle(album)}
               <ProgressLinear class="ma-3" indeterminate />
             {:then style}
-              <span>{style.name}</span>
+              <span style={`color: ${colors.fgColor} !important;`}>{style.name}</span>
             {/await}
           </Chip>
-          <Chip label outlined style={`color: ${colors.fgColor} !important;`}>
-            <span>{album.price}</span><Icon path={mdi.mdiCurrencyEur} />
+          <Chip label outlined>
+            <span style={`color: ${colors.fgColor} !important;`}>{album.price}</span><Icon
+              path={mdi.mdiCurrencyEur}
+              style={`color: ${colors.fgColor} !important;`}
+            />
           </Chip>
         </div>
         <CardActions>
           <Button text on:click={goToAlbumPage}>More info</Button>
         </CardActions>
       </Col>
-      <Col cols={4}>
-        <img bind:this={img} src={album.cover} alt="cover" />
+      <Col cols={4} class="pa-8">
+        <img bind:this={img} src={`/albumArts/${album.id}.jpg`} class="elevation-13" alt="cover" />
       </Col>
     </Row>
   </Card>
@@ -75,8 +76,10 @@
 <style>
   img {
     object-fit: cover;
-    width: 80%;
-    height: 70%;
+    width: 100%;
+    height: 100%;
+    max-width: 150px;
+    max-height: 150px;
     border-radius: 3px;
   }
 </style>
