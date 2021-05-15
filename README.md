@@ -13,8 +13,8 @@
 #### Some visuals
 
 ![Logo](github_ressources/logo.gif)
-![Logo](github_ressources/demo_search_filter.mp4)
-![Logo](github_ressources/demo_detail_artists_groups.mp4)
+![filter](github_ressources/demo_search_filter.mp4)
+![detail](github_ressources/demo_detail_artists_groups.mp4)
 
 ## How to launch
 
