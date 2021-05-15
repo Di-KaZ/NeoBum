@@ -56,8 +56,6 @@ export const getPage = async (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const filterByValue: any = searchBy[filterByName];
 
-  console.log(filterByName, filterByValue);
-
   // add search by
   if (filterByValue) {
     if (isNaN(filterByValue) && filterByValue !== '') {
@@ -76,7 +74,6 @@ export const getPage = async (
     .skip((page - 1) * pageSize)
     .limit(pageSize);
   const { cypher, params } = builder.build();
-  console.log(cypher, params);
 
   const result = await db.session().run(cypher, params);
   return result.records.map((r: neo4j.Record) => mapper<nodeTypes>(r));
@@ -127,7 +124,6 @@ export const getAlbumGroupOrArtist = async (
 };
 
 export const getMemberOfGroup = async (group: GroupProperties): Promise<ArtistProperties[]> => {
-  console.log(group);
   const { cypher, params } = new Builder()
     .match('a', 'Group', { id: group.id })
     .relationship('COMPOSED_OF', querybuilder.Direction.OUTGOING)

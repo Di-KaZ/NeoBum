@@ -2,6 +2,7 @@
   import { Col, Row } from 'svelte-materialify';
   import { fly } from 'svelte/transition';
   import ArtistCard from '../components/ArtistCard.svelte';
+  import Filter from '../components/Filter.svelte';
   import Pagination from '../components/Pagination.svelte';
   import { getPage } from '../neo4j';
   import { searchStore } from '../searchStore';
@@ -14,10 +15,11 @@
 <Row class="justify-center">
   <Pagination bind:activePage />
 </Row>
+<Filter options={['name']} />
 <Row class="justify-center">
   <Col cols={10}>
     <Row class="justify-start">
-      {#await getPage('Artist', activePage, 14, { name: $searchStore }) then artists}
+      {#await getPage('Artist', activePage, 14, { [`${$searchStore.filterBy}`]: $searchStore.search }, $searchStore.order) then artists}
         {#each artists as artist, idx}
           <Col sm={6} md={4} cols={12}>
             <div in:fly={{ y: 100, delay: (idx * 100) / 2 }}>

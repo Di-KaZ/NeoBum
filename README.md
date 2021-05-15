@@ -6,9 +6,9 @@
 
 - [x] Paginated category (albums/artists/groups)
 - [x] Simple search
-- [ ] Advanced search with filters
-- [ ] detailled views (albums/artist/groups)
-- [ ] Add more content ?
+- [x] Advanced search with filters
+- [ ] detailled views (albums/artist/groups) (not finished)
+- [ ] Add more albums/artist ?
 
 ## How to launch
 
@@ -18,6 +18,8 @@ Install docker and simply run `docker-compose up` in the root directory of this 
 
 > The website is availible on _localhost:3000_
 > The Neo4j bdd is availible on _localhost:7687_ via **bolt protocol**
+
+> ⚠ Neo4j data are not permanent in neo4j container they are re-imported at each launch
 
 ### - The hard way manually
 
