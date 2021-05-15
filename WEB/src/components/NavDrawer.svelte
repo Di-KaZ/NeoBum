@@ -1,7 +1,8 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
   import * as mdi from '@mdi/js';
-  import { Icon, List, ListItem, NavigationDrawer } from 'svelte-materialify';
+  import { Button, Icon, List, ListItem, NavigationDrawer, Row } from 'svelte-materialify';
+  import { showQueryStore, toggleShowQuery } from '../showQueryStore';
 
   export let active: boolean;
   export let close: () => void;
@@ -50,4 +51,17 @@
       </span>Groups</ListItem
     >
   </List>
+  <Row class="align-center justify-center">
+    {#if $showQueryStore}
+      <Button on:click={toggleShowQuery} class="green white-text">
+        <span class="pr-4">Show Query</span>
+        <Icon path={mdi.mdiCheckUnderline} />
+      </Button>
+    {:else}
+      <Button on:click={toggleShowQuery} class="red white-text">
+        <span class="pr-4">Hide Query</span>
+        <Icon path={mdi.mdiCancel} />
+      </Button>
+    {/if}
+  </Row>
 </NavigationDrawer>

@@ -1,12 +1,13 @@
 import Builder, * as querybuilder from '@neode/querybuilder';
+import { toast } from '@zerodevx/svelte-toast';
 import * as neo4j from 'neo4j-driver';
+import { showQueryStore } from './showQueryStore';
 import type { AlbumProperties } from './types/Album';
 import type { ArtistProperties } from './types/Artist';
 import type { GroupProperties } from './types/Group';
 import type { IntrumentProprieties } from './types/Instruments';
 import type { PaysProperties } from './types/Pays';
 import type { StyleProperties } from './types/Style';
-
 let db = null;
 
 /**
@@ -19,6 +20,18 @@ export const initDb = (): void => {
     import.meta.env.VITE_NEO4J_URL,
     neo4j.auth.basic(import.meta.env.VITE_NEO4J_USERNAME, import.meta.env.VITE_NEO4J_PASSWORD)
   );
+};
+
+const querySession = async (
+  query: any,
+  parameters?: any,
+  transactionConfig?: any
+): Promise<any> => {
+  const unususcribe = showQueryStore.subscribe((showQuery) =>
+    showQuery ? toast.push(query) : null
+  );
+  unususcribe();
+  return db.session().run(query, parameters, transactionConfig);
 };
 
 type nodeTypes =
@@ -75,7 +88,7 @@ export const getPage = async (
     .limit(pageSize);
   const { cypher, params } = builder.build();
 
-  const result = await db.session().run(cypher, params);
+  const result = await querySession(cypher, params);
   return result.records.map((r: neo4j.Record) => mapper<nodeTypes>(r));
 };
 
@@ -93,7 +106,7 @@ export const getById = async <nodeTypes>(label: Label, value: number): Promise<n
     .return('res')
     .limit(1)
     .build();
-  const result = await db.session().run(cypher, params);
+  const result = await querySession(cypher, params);
   return mapper<nodeTypes>(result.records[0]);
 };
 
@@ -106,7 +119,7 @@ export const getAlbumStyle = async (album: AlbumProperties): Promise<StyleProper
     .to('res', 'Style')
     .return('res')
     .build();
-  const result = await db.session().run(cypher, params);
+  const result = await querySession(cypher, params);
   return mapper<StyleProperties>(result.records[0]);
 };
 
@@ -119,7 +132,7 @@ export const getAlbumGroupOrArtist = async (
     .to('res')
     .return('res')
     .build();
-  const result = await db.session().run(cypher, params);
+  const result = await querySession(cypher, params);
   return mapper<ArtistProperties | GroupProperties>(result.records[0]);
 };
 
@@ -130,7 +143,7 @@ export const getMemberOfGroup = async (group: GroupProperties): Promise<ArtistPr
     .to('res')
     .return('res')
     .build();
-  const result = await db.session().run(cypher, params);
+  const result = await querySession(cypher, params);
   return result.records.map((r: neo4j.Record) => mapper<ArtistProperties>(r));
 };
 
@@ -141,7 +154,7 @@ export const getArtistPays = async (artist: ArtistProperties): Promise<PaysPrope
     .to('res')
     .return('res')
     .build();
-  const result = await db.session().run(cypher, params);
+  const result = await querySession(cypher, params);
   return mapper<PaysProperties>(result.records[0]);
 };
 
@@ -152,7 +165,7 @@ export const getGroupStyle = async (group: GroupProperties): Promise<StyleProper
     .to('res')
     .return('res')
     .build();
-  const result = await db.session().run(cypher, params);
+  const result = await querySession(cypher, params);
   return mapper<StyleProperties>(result.records[0]);
 };
 
@@ -163,7 +176,7 @@ export const getGroupPays = async (group: ArtistProperties): Promise<PaysPropert
     .to('res')
     .return('res')
     .build();
-  const result = await db.session().run(cypher, params);
+  const result = await querySession(cypher, params);
   return mapper<PaysProperties>(result.records[0]);
 };
 
@@ -174,6 +187,6 @@ export const getArtistStyle = async (artist: GroupProperties): Promise<StyleProp
     .to('res')
     .return('res')
     .build();
-  const result = await db.session().run(cypher, params);
+  const result = await querySession(cypher, params);
   return mapper<StyleProperties>(result.records[0]);
 };

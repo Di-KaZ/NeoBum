@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { SvelteToast } from '@zerodevx/svelte-toast';
   import { onMount } from 'svelte';
   import { MaterialApp, Overlay } from 'svelte-materialify';
   import { initThief } from '../colorthief';
@@ -29,6 +30,7 @@
   <NavDrawer {active} {close} />
   <Footer />
 </MaterialApp>
+<SvelteToast />
 
 <style global>
   body,
