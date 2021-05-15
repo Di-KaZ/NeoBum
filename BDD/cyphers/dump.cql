@@ -71,7 +71,6 @@ LOAD CSV WITH HEADERS FROM 'file:///albums.csv' AS row
 MATCH (art) WHERE (art:Artist OR art:Group) AND art.id = row.atristId
 MERGE (a:Album {id: toInteger(row.id)})
 SET a.name = row.name
-SET a.cover = row.cover
 SET a.prodYear = toInteger(row.prodYear)
 SET a.price = toFloat(row.price)
 MERGE (a)<-[:HAS_MADE]-(art);
