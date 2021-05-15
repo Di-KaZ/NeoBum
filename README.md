@@ -12,9 +12,9 @@
 
 #### Some visuals
 
-![Logo]('./github_ressources/../github_ressources/logo.gif')
-![Logo]('./github_ressources/../github_ressources/demo_search_filter.mp4')
-![Logo]('./github_ressources/../github_ressources/demo_detail_artists_groups.mp4')
+![Logo](github_ressources/../github_ressources/logo.gif)
+![Logo](github_ressources/../github_ressources/demo_search_filter.mp4)
+![Logo](github_ressources/../github_ressources/demo_detail_artists_groups.mp4)
 
 ## How to launch
 
