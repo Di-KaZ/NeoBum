@@ -1,6 +1,7 @@
 <script lang="ts">
   import { Col, Row } from 'svelte-materialify';
   import AlbumCard from '../components/AlbumCard.svelte';
+  import Filter from '../components/Filter.svelte';
   import Pagination from '../components/Pagination.svelte';
   import { getPage } from '../neo4j';
   import { searchStore } from '../searchStore';
@@ -12,10 +13,11 @@
 <Row class="justify-center">
   <Pagination bind:activePage />
 </Row>
+<Filter options={['name', 'prodYear', 'price']} />
 <Row class="justify-center">
   <Col cols={10}>
     <Row class="justify-center">
-      {#await getPage('Album', activePage, 14, { name: $searchStore }) then albums}
+      {#await getPage('Album', activePage, 14, { [`${$searchStore.filterBy}`]: $searchStore.search }, $searchStore.order) then albums}
         {#each albums as album, idx}
           <Col xl={5} md={6} cols={12}>
             <AlbumCard {album} {idx} />

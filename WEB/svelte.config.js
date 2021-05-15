@@ -7,6 +7,12 @@ const config = {
   preprocess: preprocess(),
   kit: {
     // hydrate the <div id="svelte"> element in src/app.html
+    appDir: '_app',
+    files: {
+      assets: 'static',
+      routes: 'src/routes',
+      template: 'src/app.html'
+    },
     adapter: node({ out: 'dist' }),
     target: '#svelte',
     vite: {

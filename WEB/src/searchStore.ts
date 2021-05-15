@@ -1,8 +1,19 @@
 import { writable } from 'svelte/store';
 
-export const searchStore = writable(null);
+const initialState = { search: '', filterBy: 'name', order: true };
 
-export const handleChangeSearch = (value: string): string => {
-  searchStore.set(value);
-  return value;
+export const searchStore = writable(initialState);
+
+export const handleChangeSearch = (value: string): void => {
+  searchStore.update((state) => ({ ...state, search: value }));
+};
+
+export const handleChhangeSort = (): void => {
+  searchStore.update((state) => ({ ...state, order: !state.order }));
+  return;
+};
+
+export const handleChangeFilter = (value: string): void => {
+  searchStore.update((state) => ({ ...state, filterBy: value }));
+  return;
 };

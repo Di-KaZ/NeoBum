@@ -12,7 +12,7 @@
   </div>
   <span class="pointer" slot="title" on:click={open}>Neo Bum</span>
   <div style="flex-grow:4" />
-  <TextField flat solo placeholder="Search" class="mt-2" bind:value={$searchStore} />
+  <TextField flat solo placeholder="Search" class="mt-2" bind:value={$searchStore.search} />
   <Button class="white" fab>
     <Icon path={mdi.mdiMagnify} />
   </Button>

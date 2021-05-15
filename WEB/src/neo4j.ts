@@ -48,18 +48,31 @@ export const getPage = async (
   label: Label,
   page = 1,
   pageSize = 14,
-  props = { name: '' }
+  searchBy = {},
+  orderBy = true
 ): Promise<nodeTypes[]> => {
   const builder = new Builder().match('res', label);
+  const filterByName = Object.keys(searchBy)[0];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const filterByValue: any = searchBy[filterByName];
 
-  // add search by name
-  if (props.name !== null && props.name !== '') {
-    builder
-      .with('toLower(res.name) as lower_name, res')
-      .whereContains('lower_name', props.name.toLowerCase());
+  console.log(filterByName, filterByValue);
+
+  // add search by
+  if (filterByValue) {
+    if (isNaN(filterByValue) && filterByValue !== '') {
+      builder
+        .with(`toLower(res.${filterByName}) as lower_${filterByName}, res`)
+        .whereContains('lower_name', filterByValue.toLowerCase());
+    } else {
+      builder
+        .with(`toLower(toString(res.${filterByName})) as lower_${filterByName}, res`)
+        .whereContains(`lower_${filterByName}`, searchBy[Object.keys(searchBy)[0]].toLowerCase());
+    }
   }
   builder
     .return('res')
+    .orderBy(`res.${filterByName}`, orderBy ? querybuilder.Order.DESC : querybuilder.Order.ASC)
     .skip((page - 1) * pageSize)
     .limit(pageSize);
   const { cypher, params } = builder.build();

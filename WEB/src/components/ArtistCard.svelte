@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { goto } from '$app/navigation';
   import * as mdi from '@mdi/js';
   import {
     Button,
@@ -39,7 +38,7 @@
         {/await}
       </div>
       <CardActions>
-        <Button class="pl-7" text on:click={() => goto(`/Albums/${artist.id}`)}>More Info</Button>
+        <Button class="pl-7" text>More Info</Button>
       </CardActions>
     </Col>
   </Row>

@@ -11,6 +11,8 @@ RUN yarn install
 
 RUN yarn build
 
+# RUN mkdir /app/dist/albumArts && cp /app/src/albumArts/* /app/dist/albumArts/
+
 EXPOSE 3000
 
 ENTRYPOINT [ "node", "/app/dist/index.js" ]

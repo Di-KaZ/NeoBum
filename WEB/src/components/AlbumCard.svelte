@@ -1,5 +1,6 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
+  import { assets } from '$app/paths';
   import * as mdi from '@mdi/js';
   import { onMount } from 'svelte';
   import {
@@ -67,7 +68,12 @@
         </CardActions>
       </Col>
       <Col cols={4} class="pa-8">
-        <img bind:this={img} src={`/albumArts/${album.id}.jpg`} class="elevation-13" alt="cover" />
+        <img
+          bind:this={img}
+          src={`${assets}/albumArts/${album.id}.jpg`}
+          class="elevation-13"
+          alt="cover"
+        />
       </Col>
     </Row>
   </Card>
