@@ -12,9 +12,14 @@
 
 #### Some visuals
 
-![Logo](github_ressources/logo.gif)
-![filter](github_ressources/demo_search_filter.mp4)
-![detail](github_ressources/demo_detail_artists_groups.mp4)
+- Home
+  ![Logo](github_ressources/logo.gif)
+
+- Album catalog + search by filters
+  ![filter](github_ressources/demo_search_filter.gif)
+
+- Detail of album and search by filter of artists and groups
+  ![detail](github_ressources/demo_detail_artists_groups.gif)
 
 ## How to launch
 
