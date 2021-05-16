@@ -1,19 +1,20 @@
 <script lang="ts">
   import * as mdi from '@mdi/js';
   import {
-    Button,
-    Card,
-    CardActions,
-    CardSubtitle,
-    CardTitle,
-    Chip,
-    Col,
-    Icon,
-    ProgressLinear,
-    Row
+  Button,
+  Card,
+  CardActions,
+  CardSubtitle,
+  CardTitle,
+  Chip,
+  Col,
+  Icon,
+  ProgressLinear,
+  Row
   } from 'svelte-materialify';
-  import { getArtistPays, getArtistStyle } from '../neo4j';
+  import { getArtistPays,getArtistStyle } from '../neo4j';
   import type { ArtistProperties } from '../types/Artist';
+
 
   export let artist: ArtistProperties;
 </script>

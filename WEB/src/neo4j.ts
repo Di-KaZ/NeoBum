@@ -158,7 +158,7 @@ export const getArtistPays = async (artist: ArtistProperties): Promise<PaysPrope
   return mapper<PaysProperties>(result.records[0]);
 };
 
-export const getGroupStyle = async (group: GroupProperties): Promise<StyleProperties> => {
+export const getArtistStyle = async (group: GroupProperties): Promise<StyleProperties> => {
   const { cypher, params } = new Builder()
     .match('a', 'Artist', { id: group.id })
     .relationship('HAS_STYLE', querybuilder.Direction.OUTGOING)
@@ -180,7 +180,7 @@ export const getGroupPays = async (group: ArtistProperties): Promise<PaysPropert
   return mapper<PaysProperties>(result.records[0]);
 };
 
-export const getArtistStyle = async (artist: GroupProperties): Promise<StyleProperties> => {
+export const getGroupStyle = async (artist: GroupProperties): Promise<StyleProperties> => {
   const { cypher, params } = new Builder()
     .match('a', 'Group', { id: artist.id })
     .relationship('HAS_STYLE', querybuilder.Direction.OUTGOING)
